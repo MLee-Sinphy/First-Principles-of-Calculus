@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Limits | First Principles of Calculus</title>
+
+    <meta name="author" content="M Lee">
+
+    <meta
+        name="description"
+        content="A rigorous introduction to limits, developed from mathematical motivation, historical context, precise definitions, proofs, examples, and exercises."
+    >
+
+    <meta
+        name="keywords"
+        content="limits, calculus, mathematical analysis, epsilon delta, continuity, real analysis"
+    >
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/limits.css">
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [
+                    ["\\(", "\\)"]
+                ],
+                displayMath: [
+                    ["\\[", "\\]"]
+                ],
+                tags: "ams"
+            },
+            options: {
+                skipHtmlTags: [
+                    "script",
+                    "noscript",
+                    "style",
+                    "textarea",
+                    "pre",
+                    "code"
+                ]
+            }
+        };
+    </script>
+
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="site-header__content">
+
+            <p class="site-eyebrow">
+                First Principles of Calculus
+            </p>
+
+            <h1>Limits</h1>
+
+            <p class="site-subtitle">
+                From approximation and local behavior to the rigorous
+                \(\varepsilon\)-\(\delta\) definition.
+            </p>
+
+            <p class="site-author">
+                <strong>Author:</strong> M Lee
+            </p>
+
+            <nav
+                class="primary-navigation"
+                aria-label="Primary navigation"
+            >
+                <a href="../index.html">Home</a>
+                <a href="./" aria-current="page">Limits</a>
+                <a href="../derivatives/">Derivatives</a>
+                <a href="../integrals/">Integrals</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <div class="chapter-layout">
+
+        <aside
+            class="chapter-navigation"
+            aria-label="Chapter contents"
+        >
+            <p class="chapter-navigation__title">
+                Chapter contents
+            </p>
+
+            <ol>
+                <li>
+                    <a href="#motivation">Motivation</a>
+                </li>
+
+                <li>
+                    <a href="#historical-context">
+                        Historical context
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#preliminaries">
+                        Logical and mathematical preliminaries
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#informal-concept">
+                        The informal concept
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#formal-definition">
+                        The formal definition
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#examples">
+                        First examples
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#one-sided-limits">
+                        One-sided limits
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#limit-laws">
+                        Fundamental limit laws
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#visualization">
+                        Interactive visualization
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#exercises">
+                        Exercises
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#references">
+                        References
+                    </a>
+                </li>
+            </ol>
+        </aside>
+
+        <main class="chapter">
+
+            <article class="chapter-introduction">
+
+                <p class="chapter-number">
+                    Chapter I
+                </p>
+
+                <p class="lead">
+                    The theory of limits provides the formal language through
+                    which mathematics describes approximation, convergence,
+                    continuity, instantaneous variation, and accumulation.
+                    Differential and integral calculus cannot be constructed
+                    rigorously without it.
+                </p>
+
+                <p>
+                    The purpose of this chapter is not merely to teach techniques
+                    for evaluating limits. Its principal objective is to explain
+                    what a limit is, why the concept is necessary, how its modern
+                    definition encodes approximation through quantifiers, and how
+                    rigorous proofs are built directly from that definition.
+                </p>
+
+            </article>
+
+            <section
+                id="motivation"
+                class="chapter-section"
+            >
+
+                <h2>1. Motivation</h2>
+
+                <p>
+                    Mathematics frequently studies the behavior of a quantity
+                    near a point rather than exclusively at that point. A
+                    function may be undefined at \(x=a\), yet its values may
+                    exhibit a completely determinate pattern whenever \(x\)
+                    approaches \(a\). Conversely, a function may be defined at
+                    \(a\), while its nearby behavior bears no relation to the
+                    assigned value \(f(a)\).
+                </p>
+
+                <p>
+                    Consider the function
+                </p>
+
+                \[
+                    f(x)
+                    =
+                    \frac{x^2-1}{x-1},
+                    \qquad x\neq 1.
+                \]
+
+                <p>
+                    Algebraically,
+                </p>
+
+                \[
+                    x^2-1=(x-1)(x+1),
+                \]
+
+                <p>
+                    and therefore
+                </p>
+
+                \[
+                    f(x)=x+1,
+                    \qquad x\neq 1.
+                \]
+
+                <p>
+                    Although \(f(1)\) is not defined, the values of \(f(x)\)
+                    become arbitrarily close to \(2\) when \(x\) becomes
+                    sufficiently close to \(1\). The concept of limit isolates
+                    precisely this local behavior:
+                </p>
+
+                \[
+                    \lim_{x\to 1}
+                    \frac{x^2-1}{x-1}
+                    =2.
+                \]
+
+                <article class="remark">
+
+                    <h3>Conceptual distinction</h3>
+
+                    <p>
+                        The expression
+                        \(\lim_{x\to a}f(x)=L\) concerns the values of \(f(x)\)
+                        for \(x\) near \(a\). It does not, by itself, assert that
+                        \(f(a)\) exists, nor that \(f(a)=L\).
+                    </p>
+
+                </article>
+
+                <p>
+                    Limits therefore allow us to discuss instantaneous velocity,
+                    tangent lines, continuity, infinite series, derivatives,
+                    integrals, differential equations, numerical approximation,
+                    probability distributions, and countless other structures
+                    arising throughout mathematics, physics, engineering, and
+                    computational science.
+                </p>
+
+            </section>
+
+            <section
+                id="historical-context"
+                class="chapter-section"
+            >
+
+                <h2>2. Historical Context</h2>
+
+                <p>
+                    The methods that eventually became differential and integral
+                    calculus were developed during the seventeenth century,
+                    especially through the work of Isaac Newton and Gottfried
+                    Wilhelm Leibniz. Early calculus successfully solved profound
+                    problems involving motion, tangency, area, and accumulation,
+                    but its foundational language relied heavily on geometric
+                    intuition and infinitesimal quantities whose logical status
+                    was not yet completely clarified.
+                </p>
+
+                <p>
+                    During the nineteenth century, mathematicians progressively
+                    reconstructed analysis on an arithmetic and logical basis.
+                    Bernard Bolzano's 1817 work presented an unusually advanced
+                    purely analytic treatment of continuity and the intermediate
+                    value property
+                    <a
+                        class="citation"
+                        href="#ref-bolzano-1817"
+                        aria-label="Reference 1"
+                    >[1]</a>.
+                    Augustin-Louis Cauchy's
+                    <em>Cours d'Analyse</em>, published in 1821, systematically
+                    placed limits and convergence near the center of analysis
+                    <a
+                        class="citation"
+                        href="#ref-cauchy-1821"
+                        aria-label="Reference 2"
+                    >[2]</a>.
+                </p>
+
+                <p>
+                    The explicitly quantified \(\varepsilon\)-\(\delta\)
+                    formulation familiar today emerged gradually and reached a
+                    mature form in the work and lectures of Karl Weierstrass
+                    during the nineteenth century
+                    <a
+                        class="citation"
+                        href="#ref-sinkevich-2015"
+                        aria-label="Reference 3"
+                    >[3]</a>.
+                    This development replaced vague expressions such as
+                    “infinitely close” with exact statements concerning
+                    inequalities and quantifiers.
+                </p>
+
+                <article class="historical-note">
+
+                    <h3>Historical note</h3>
+
+                    <p>
+                        The history of rigor in analysis was not a simple
+                        replacement of error by correctness. Earlier methods were
+                        often computationally powerful and conceptually subtle.
+                        The nineteenth-century development supplied a framework
+                        in which those insights could be stated and proved with
+                        greater logical precision.
+                    </p>
+
+                </article>
+
+            </section>
+
+            <section
+                id="preliminaries"
+                class="chapter-section"
+            >
+
+                <h2>3. Logical and Mathematical Preliminaries</h2>
+
+                <p>
+                    A rigorous definition of limit depends upon several ideas:
+                    distance on the real line, punctured neighborhoods,
+                    accumulation points, implication, and nested quantifiers.
+                    We introduce these objects before stating the definition.
+                </p>
+
+                <article class="definition">
+
+                    <h3>Definition 3.1 — Distance on \(\mathbb{R}\)</h3>
+
+                    <p>
+                        For \(x,a\in\mathbb{R}\), the distance between \(x\)
+                        and \(a\) is
+                    </p>
+
+                    \[
+                        d(x,a)\coloneqq |x-a|.
+                    \]
+
+                </article>
+
+                <article class="definition">
+
+                    <h3>
+                        Definition 3.2 — Open and punctured neighborhoods
+                    </h3>
+
+                    <p>
+                        Let \(a\in\mathbb{R}\) and \(\delta>0\). The open
+                        \(\delta\)-neighborhood of \(a\) is
+                    </p>
+
+                    \[
+                        B_\delta(a)
+                        \coloneqq
+                        \left\{
+                            x\in\mathbb{R}
+                            :
+                            |x-a|<\delta
+                        \right\}.
+                    \]
+
+                    <p>
+                        The corresponding punctured neighborhood is
+                    </p>
+
+                    \[
+                        B_\delta^{\times}(a)
+                        \coloneqq
+                        \left\{
+                            x\in\mathbb{R}
+                            :
+                            0<|x-a|<\delta
+                        \right\}.
+                    \]
+
+                    <p>
+                        The condition \(0<|x-a|\) excludes the point \(a\)
+                        itself.
+                    </p>
+
+                </article>
+
+                <article class="definition">
+
+                    <h3>Definition 3.3 — Accumulation point</h3>
+
+                    <p>
+                        Let \(D\subseteq\mathbb{R}\). A point
+                        \(a\in\mathbb{R}\) is an accumulation point of \(D\)
+                        when
+                    </p>
+
+                    \[
+                        \forall \delta>0,
+                        \qquad
+                        B_\delta^{\times}(a)\cap D
+                        \neq \varnothing.
+                    \]
+
+                    <p>
+                        Equivalently, every punctured neighborhood of \(a\)
+                        contains at least one point of \(D\).
+                    </p>
+
+                </article>
+
+                <article class="remark">
+
+                    <h3>Why accumulation points matter</h3>
+
+                    <p>
+                        To discuss the behavior of \(f(x)\) as \(x\to a\),
+                        the domain of \(f\) must contain points arbitrarily close
+                        to \(a\). The point \(a\) itself need not belong to the
+                        domain.
+                    </p>
+
+                </article>
+
+                <article class="logical-form">
+
+                    <h3>The quantifier pattern</h3>
+
+                    <p>
+                        The formal limit definition has the logical form
+                    </p>
+
+                    \[
+                        \forall\varepsilon>0,
+                        \quad
+                        \exists\delta>0,
+                        \quad
+                        \forall x\in D,
+                        \quad
+                        P(\varepsilon,\delta,x).
+                    \]
+
+                    <p>
+                        The order is essential. The value of \(\delta\) may
+                        depend on \(\varepsilon\), but it must not depend on the
+                        particular point \(x\) subsequently chosen.
+                    </p>
+
+                </article>
+
+            </section>
+
+            <section
+                id="informal-concept"
+                class="chapter-section"
+            >
+
+                <h2>4. The Informal Concept of Limit</h2>
+
+                <p>
+                    Informally, the statement
+                \(\lim_{x\to a}f(x)=L\) means that values of \(f(x)\) can be
+                    forced arbitrarily close to \(L\) by requiring \(x\) to be
+                    sufficiently close to \(a\), without requiring \(x=a\).
+                </p>
+
+                <p>
+                    The phrases “arbitrarily close” and “sufficiently close”
+                    encode two independent tolerances:
+                </p>
+
+                <dl class="concept-list">
+
+                    <div>
+                        <dt>\(\varepsilon\)</dt>
+                        <dd>
+                            The permitted error in the output:
+                            \(|f(x)-L|<\varepsilon\).
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt>\(\delta\)</dt>
+                        <dd>
+                            The required proximity in the input:
+                            \(0<|x-a|<\delta\).
+                        </dd>
+                    </div>
+
+                </dl>
+
+                <p>
+                    The definition asserts that every positive output tolerance
+                    can be achieved by imposing a sufficiently restrictive
+                    positive input tolerance.
+                </p>
+
+                <div class="implication-display">
+
+                    \[
+                        0<|x-a|<\delta
+                        \quad\Longrightarrow\quad
+                        |f(x)-L|<\varepsilon.
+                    \]
+
+                </div>
+
+                <article class="warning">
+
+                    <h3>What the definition does not say</h3>
+
+                    <p>
+                        It does not say that \(x\) eventually becomes equal to
+                        \(a\), that \(f(x)\) becomes equal to \(L\), or that
+                        either quantity is physically moving. The definition is
+                        a quantified statement about inequalities.
+                    </p>
+
+                </article>
+
+            </section>
+
+            <section
+                id="formal-definition"
+                class="chapter-section"
+            >
+
+                <h2>5. The Formal Definition</h2>
+
+                <article class="definition definition--central">
+
+                    <h3>
+                        Definition 5.1 —
+                        Limit of a real-valued function
+                    </h3>
+
+                    <p>
+                        Let \(D\subseteq\mathbb{R}\), let
+                        \(f:D\to\mathbb{R}\), and let \(a\) be an accumulation
+                        point of \(D\). We say that \(f(x)\) tends to
+                        \(L\in\mathbb{R}\) as \(x\) tends to \(a\), and write
+                    </p>
+
+                    \[
+                        \boxed{
+                            \lim_{x\to a}f(x)=L
+                        },
+                    \]
+
+                    <p>
+                        when
+                    </p>
+
+                    \[
+                        \boxed{
+                        \forall\varepsilon>0\
+                        \exists\delta>0\
+                        \forall x\in D:
+                        \quad
+                        0<|x-a|<\delta
+                        \Longrightarrow
+                        |f(x)-L|<\varepsilon
+                        }.
+                    \]
+
+                </article>
+
+                <h3 class="subsection-title">
+                    Reading the definition
+                </h3>
+
+                <p>
+                    The definition can be read as a challenge-and-response
+                    structure:
+                </p>
+
+                <ol class="logical-steps">
+
+                    <li>
+                        An arbitrary tolerance \(\varepsilon>0\) is specified.
+                    </li>
+
+                    <li>
+                        One must produce a corresponding \(\delta>0\).
+                    </li>
+
+                    <li>
+                        The chosen \(\delta\) must work for every
+                        \(x\in D\) satisfying
+                        \(0<|x-a|<\delta\).
+                    </li>
+
+                    <li>
+                        For every such \(x\), one must prove
+                        \(|f(x)-L|<\varepsilon\).
+                    </li>
+
+                </ol>
+
+                <article class="remark">
+
+                    <h3>Dependence of \(\delta\)</h3>
+
+                    <p>
+                        In general, \(\delta\) may depend on \(\varepsilon\),
+                        on the function \(f\), and on the point \(a\). A proof
+                        often constructs an explicit rule
+                        \(\delta=\delta(\varepsilon)\), though the definition
+                        requires only existence.
+                    </p>
+
+                </article>
+
+                <article class="theorem">
+
+                    <h3>Theorem 5.2 — Uniqueness of limits</h3>
+
+                    <p>
+                        Let \(a\) be an accumulation point of
+                        \(D\subseteq\mathbb{R}\), and let
+                        \(f:D\to\mathbb{R}\). If
+                    </p>
+
+                    \[
+                        \lim_{x\to a}f(x)=L
+                        \qquad\text{and}\qquad
+                        \lim_{x\to a}f(x)=M,
+                    \]
+
+                    <p>
+                        then \(L=M\).
+                    </p>
+
+                </article>
+
+                <article class="proof">
+
+                    <h3>Proof</h3>
+
+                    <p>
+                        Assume, toward a contradiction, that \(L\neq M\).
+                        Define
+                    </p>
+
+                    \[
+                        \varepsilon
+                        \coloneqq
+                        \frac{|L-M|}{3}
+                        >0.
+                    \]
+
+                    <p>
+                        Since \(f(x)\to L\), there exists
+                        \(\delta_L>0\) such that
+                    </p>
+
+                    \[
+                        0<|x-a|<\delta_L
+                        \Longrightarrow
+                        |f(x)-L|<\varepsilon.
+                    \]
+
+                    <p>
+                        Since \(f(x)\to M\), there exists
+                        \(\delta_M>0\) such that
+                    </p>
+
+                    \[
+                        0<|x-a|<\delta_M
+                        \Longrightarrow
+                        |f(x)-M|<\varepsilon.
+                    \]
+
+                    <p>
+                        Let
+                    </p>
+
+                    \[
+                        \delta
+                        \coloneqq
+                        \min\{\delta_L,\delta_M\}.
+                    \]
+
+                    <p>
+                        Because \(a\) is an accumulation point of \(D\), there
+                        exists \(x\in D\) such that
+                        \(0<|x-a|<\delta\). By the triangle inequality,
+                    </p>
+
+                    \[
+                    \begin{aligned}
+                        |L-M|
+                        &=
+                        |L-f(x)+f(x)-M|
+                        \\
+                        &\leq
+                        |L-f(x)|+|f(x)-M|
+                        \\
+                        &<
+                        \varepsilon+\varepsilon
+                        \\
+                        &=
+                        \frac{2}{3}|L-M|.
+                    \end{aligned}
+                    \]
+
+                    <p>
+                        This is impossible. Therefore \(L=M\).
+                        \(\square\)
+                    </p>
+
+                </article>
+
+            </section>
+
+            <section
+                id="examples"
+                class="chapter-section"
+            >
+
+                <h2>6. First Examples</h2>
+
+                <article class="example">
+
+                    <h3>
+                        Example 6.1 —
+                        A linear function
+                    </h3>
+
+                    <p>
+                        Prove directly from the definition that
+                    </p>
+
+                    \[
+                        \lim_{x\to 3}(2x+1)=7.
+                    \]
+
+                    <p>
+                        We seek to control
+                    </p>
+
+                    \[
+                    \begin{aligned}
+                        |f(x)-7|
+                        &=
+                        |2x+1-7|
+                        \\
+                        &=
+                        |2x-6|
+                        \\
+                        &=
+                        2|x-3|.
+                    \end{aligned}
+                    \]
+
+                    <p>
+                        Given \(\varepsilon>0\), choose
+                    </p>
+
+                    \[
+                        \delta
+                        \coloneqq
+                        \frac{\varepsilon}{2}.
+                    \]
+
+                    <p>
+                        If \(0<|x-3|<\delta\), then
+                    </p>
+
+                    \[
+                        |f(x)-7|
+                        =
+                        2|x-3|
+                        <
+                        2\delta
+                        =
+                        \varepsilon.
+                    \]
+
+                    <p>
+                        Hence,
+                    </p>
+
+                    \[
+                        \lim_{x\to 3}(2x+1)=7.
+                        \qquad \square
+                    \]
+
+                </article>
+
+                <article class="example">
+
+                    <h3>
+                        Example 6.2 —
+                        A quadratic function
+                    </h3>
+
+                    <p>
+                        Prove that
+                    </p>
+
+                    \[
+                        \lim_{x\to 2}x^2=4.
+                    \]
+
+                    <p>
+                        The relevant difference factors as
+                    </p>
+
+                    \[
+                        |x^2-4|
+                        =
+                        |x-2||x+2|.
+                    \]
+
+                    <p>
+                        The factor \(|x-2|\) is controlled directly by
+                        \(\delta\), but \(|x+2|\) must also be bounded. We first
+                        impose
+                    </p>
+
+                    \[
+                        |x-2|<1.
+                    \]
+
+                    <p>
+                        Then \(1<x<3\), and consequently
+                    </p>
+
+                    \[
+                        |x+2|<5.
+                    \]
+
+                    <p>
+                        Given \(\varepsilon>0\), choose
+                    </p>
+
+                    \[
+                        \delta
+                        \coloneqq
+                        \min
+                        \left\{
+                            1,
+                            \frac{\varepsilon}{5}
+                        \right\}.
+                    \]
+
+                    <p>
+                        If \(0<|x-2|<\delta\), then
+                    </p>
+
+                    \[
+                    \begin{aligned}
+                        |x^2-4|
+                        &=
+                        |x-2||x+2|
+                        \\
+                        &<
+                        5|x-2|
+                        \\
+                        &<
+                        5\delta
+                        \\
+                        &\leq
+                        \varepsilon.
+                    \end{aligned}
+                    \]
+
+                    <p>
+                        Therefore,
+                    </p>
+
+                    \[
+                        \lim_{x\to 2}x^2=4.
+                        \qquad \square
+                    \]
+
+                </article>
+
+                <article class="example">
+
+                    <h3>
+                        Example 6.3 —
+                        A removable singularity
+                    </h3>
+
+                    <p>
+                        Consider
+                    </p>
+
+                    \[
+                        f(x)
+                        =
+                        \frac{x^2-1}{x-1},
+                        \qquad
+                        x\neq 1.
+                    \]
+
+                    <p>
+                        For \(x\neq1\),
+                    </p>
+
+                    \[
+                        f(x)=x+1.
+                    \]
+
+                    <p>
+                        Thus,
+                    </p>
+
+                    \[
+                    \begin{aligned}
+                        |f(x)-2|
+                        &=
+                        |x+1-2|
+                        \\
+                        &=
+                        |x-1|.
+                    \end{aligned}
+                    \]
+
+                    <p>
+                        Given \(\varepsilon>0\), choosing
+                        \(\delta=\varepsilon\) proves that
+                    </p>
+
+                    \[
+                        \lim_{x\to1}
+                        \frac{x^2-1}{x-1}
+                        =
+                        2.
+                    \]
+
+                    <p>
+                        Notice again that the function need not be defined at
+                        the limiting point.
+                    </p>
+
+                </article>
+
+            </section>
+
+            <section
+                id="one-sided-limits"
+                class="chapter-section"
+            >
+
+                <h2>7. One-Sided Limits</h2>
+
+                <p>
+                    In some problems, the behavior of a function depends on the
+                    direction from which the variable approaches a point.
+                </p>
+
+                <article class="definition">
+
+                    <h3>Definition 7.1 — Left-hand limit</h3>
+
+                    <p>
+                        We write
+                    </p>
+
+                    \[
+                        \lim_{x\to a^-}f(x)=L
+                    \]
+
+                    <p>
+                        when, for every \(\varepsilon>0\), there exists
+                        \(\delta>0\) such that
+                    </p>
+
+                    \[
+                        a-\delta<x<a
+                        \Longrightarrow
+                        |f(x)-L|<\varepsilon.
+                    \]
+
+                </article>
+
+                <article class="definition">
+
+                    <h3>Definition 7.2 — Right-hand limit</h3>
+
+                    <p>
+                        We write
+                    </p>
+
+                    \[
+                        \lim_{x\to a^+}f(x)=L
+                    \]
+
+                    <p>
+                        when, for every \(\varepsilon>0\), there exists
+                        \(\delta>0\) such that
+                    </p>
+
+                    \[
+                        a<x<a+\delta
+                        \Longrightarrow
+                        |f(x)-L|<\varepsilon.
+                    \]
+
+                </article>
+
+                <article class="theorem">
+
+                    <h3>
+                        Theorem 7.3 —
+                        Characterization by one-sided limits
+                    </h3>
+
+                    <p>
+                        Suppose that the relevant one-sided accumulation
+                        conditions hold. Then
+                    </p>
+
+                    \[
+                        \lim_{x\to a}f(x)=L
+                    \]
+
+                    <p>
+                        if and only if
+                    </p>
+
+                    \[
+                        \lim_{x\to a^-}f(x)=L
+                        \qquad\text{and}\qquad
+                        \lim_{x\to a^+}f(x)=L.
+                    \]
+
+                </article>
+
+                <article class="example">
+
+                    <h3>
+                        Example 7.4 —
+                        Distinct one-sided limits
+                    </h3>
+
+                    <p>
+                        Let
+                    </p>
+
+                    \[
+                        f(x)
+                        =
+                        \begin{cases}
+                            -1, & x<0,\\
+                            1, & x\geq0.
+                        \end{cases}
+                    \]
+
+                    <p>
+                        Then
+                    </p>
+
+                    \[
+                        \lim_{x\to0^-}f(x)=-1,
+                        \qquad
+                        \lim_{x\to0^+}f(x)=1.
+                    \]
+
+                    <p>
+                        Since the one-sided limits are different,
+                    </p>
+
+                    \[
+                        \lim_{x\to0}f(x)
+                    \]
+
+                    <p>
+                        does not exist.
+                    </p>
+
+                </article>
+
+            </section>
+
+            <section
+                id="limit-laws"
+                class="chapter-section"
+            >
+
+                <h2>8. Fundamental Limit Laws</h2>
+
+                <article class="theorem">
+
+                    <h3>Theorem 8.1 — Algebra of limits</h3>
+
+                    <p>
+                        Suppose
+                    </p>
+
+                    \[
+                        \lim_{x\to a}f(x)=L,
+                        \qquad
+                        \lim_{x\to a}g(x)=M,
+                    \]
+
+                    <p>
+                        and let \(\lambda\in\mathbb{R}\). Then:
+                    </p>
+
+                    <ol class="theorem-list">
+
+                        <li>
+                            \[
+                                \lim_{x\to a}
+                                \bigl(f(x)+g(x)\bigr)
+                                =
+                                L+M.
+                            \]
+                        </li>
+
+                        <li>
+                            \[
+                                \lim_{x\to a}
+                                \lambda f(x)
+                                =
+                                \lambda L.
+                            \]
+                        </li>
+
+                        <li>
+                            \[
+                                \lim_{x\to a}
+                                f(x)g(x)
+                                =
+                                LM.
+                            \]
+                        </li>
+
+                        <li>
+                            If \(M\neq0\), then
+                            \[
+                                \lim_{x\to a}
+                                \frac{f(x)}{g(x)}
+                                =
+                                \frac{L}{M},
+                            \]
+                            provided \(g(x)\neq0\) in a sufficiently small
+                            punctured neighborhood of \(a\).
+                        </li>
+
+                    </ol>
+
+                </article>
+
+                <article class="remark">
+
+                    <h3>Why these laws matter</h3>
+
+                    <p>
+                        The definition remains the logical foundation of the
+                        theory, but the limit laws allow complicated expressions
+                        to be reduced to simpler ones. Their proofs are not mere
+                        formalities: they show how error tolerances combine under
+                        algebraic operations.
+                    </p>
+
+                </article>
+
+            </section>
+
+            <section
+                id="visualization"
+                class="chapter-section"
+            >
+
+                <h2>9. Interactive Visualization</h2>
+
+                <p>
+                    The interactive component will be introduced after the
+                    mathematical and typographic structure of this chapter has
+                    been validated. The interface will allow the reader to
+                    inspect functions numerically and geometrically without
+                    replacing formal reasoning.
+                </p>
+
+                <div class="visualization-preview">
+
+                    <div class="visualization-preview__controls">
+
+                        <label for="function-preview">
+                            Function
+                        </label>
+
+                        <select
+                            id="function-preview"
+                            disabled
+                        >
+                            <option>
+                                f(x) = x²
+                            </option>
+                        </select>
+
+                        <label for="x-preview">
+                            Input value \(x\)
+                        </label>
+
+                        <input
+                            id="x-preview"
+                            type="number"
+                            value="2"
+                            disabled
+                        >
+
+                        <div class="function-value-preview">
+                            \(f(x)=4\)
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="graph-placeholder"
+                        role="img"
+                        aria-label="Placeholder for a future interactive function graph"
+                    >
+                        <div class="graph-placeholder__axis-x"></div>
+                        <div class="graph-placeholder__axis-y"></div>
+
+                        <p>
+                            Interactive graph module
+                        </p>
+                    </div>
+
+                </div>
+
+                <h3 class="subsection-title">
+                    Planned experiments
+                </h3>
+
+                <ul class="planned-features">
+
+                    <li>
+                        Select among representative functions such as
+                        \(x^2\), \(|x|\), \(1/x\), \(\sin x/x\), and functions
+                        with removable or jump discontinuities.
+                    </li>
+
+                    <li>
+                        Enter or select an input \(x\) and display the
+                        corresponding value \(f(x)\).
+                    </li>
+
+                    <li>
+                        Inspect graph coordinates through mouse movement,
+                        clicking, or touch interaction.
+                    </li>
+
+                    <li>
+                        Adjust horizontal and vertical viewing intervals.
+                    </li>
+
+                    <li>
+                        Choose an \(\varepsilon\)-tolerance and observe a
+                        corresponding admissible \(\delta\)-neighborhood.
+                    </li>
+
+                    <li>
+                        Animate sequences \(x_n\to a\) and compare the
+                        resulting values \(f(x_n)\).
+                    </li>
+
+                </ul>
+
+            </section>
+
+            <section
+                id="exercises"
+                class="chapter-section"
+            >
+
+                <h2>10. Exercises</h2>
+
+                <p>
+                    The exercises are ordered from conceptual interpretation to
+                    formal proof.
+                </p>
+
+                <ol class="exercise-list">
+
+                    <li class="exercise">
+
+                        <p class="exercise-level">
+                            Level I — Conceptual
+                        </p>
+
+                        <p>
+                            Explain why the value \(f(a)\) does not appear in the
+                            formal definition of
+                            \(\lim_{x\to a}f(x)\).
+                        </p>
+
+                    </li>
+
+                    <li class="exercise">
+
+                        <p class="exercise-level">
+                            Level II — Logical structure
+                        </p>
+
+                        <p>
+                            Negate the statement
+                        </p>
+
+                        \[
+                            \forall\varepsilon>0\
+                            \exists\delta>0\
+                            \forall x\in D:
+                            \quad
+                            0<|x-a|<\delta
+                            \Longrightarrow
+                            |f(x)-L|<\varepsilon.
+                        \]
+
+                        <p>
+                            Express the result both symbolically and in words.
+                        </p>
+
+                    </li>
+
+                    <li class="exercise">
+
+                        <p class="exercise-level">
+                            Level III — Direct proof
+                        </p>
+
+                        <p>
+                            Prove from the definition that
+                        </p>
+
+                        \[
+                            \lim_{x\to -2}(3x-4)=-10.
+                        \]
+
+                    </li>
+
+                    <li class="exercise">
+
+                        <p class="exercise-level">
+                            Level IV — Bounding argument
+                        </p>
+
+                        <p>
+                            Prove from the definition that
+                        </p>
+
+                        \[
+                            \lim_{x\to3}x^2=9.
+                        \]
+
+                        <p>
+                            Your proof must explicitly justify a bound for
+                            \(|x+3|\).
+                        </p>
+
+                    </li>
+
+                    <li class="exercise">
+
+                        <p class="exercise-level">
+                            Level V — Challenge
+                        </p>
+
+                        <p>
+                            Let
+                        </p>
+
+                        \[
+                            f(x)
+                            =
+                            \begin{cases}
+                                x\sin(1/x), & x\neq0,\\
+                                0, & x=0.
+                            \end{cases}
+                        \]
+
+                        <p>
+                            Prove directly from the
+                            \(\varepsilon\)-\(\delta\) definition that
+                        </p>
+
+                        \[
+                            \lim_{x\to0}f(x)=0.
+                        \]
+
+                        <p>
+                            Identify precisely which inequality controls the
+                            oscillatory factor.
+                        </p>
+
+                    </li>
+
+                </ol>
+
+            </section>
+
+            <section
+                id="references"
+                class="chapter-section references"
+            >
+
+                <h2>References</h2>
+
+                <ol class="bibliography">
+
+                    <li id="ref-bolzano-1817">
+
+                        <span class="reference-author">
+                            Bolzano, Bernard.
+                        </span>
+
+                        <cite>
+                            Rein analytischer Beweis des Lehrsatzes, daß
+                            zwischen je zwey Werthen, die ein entgegengesetztes
+                            Resultat gewähren, wenigstens eine reelle Wurzel
+                            der Gleichung liege.
+                        </cite>
+
+                        Prague: Gottlieb Haase, 1817.
+
+                        <a
+                            href="https://eudml.org/doc/202403"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Digital edition
+                        </a>.
+
+                    </li>
+
+                    <li id="ref-cauchy-1821">
+
+                        <span class="reference-author">
+                            Cauchy, Augustin-Louis.
+                        </span>
+
+                        <cite>
+                            Cours d'Analyse de l'École Royale Polytechnique:
+                            Première Partie, Analyse Algébrique.
+                        </cite>
+
+                        Paris: Imprimerie Royale, 1821.
+
+                        <a
+                            href="https://gallica.bnf.fr/ark:/12148/btv1b8626657t.image"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Bibliothèque nationale de France
+                        </a>.
+
+                    </li>
+
+                    <li id="ref-sinkevich-2015">
+
+                        <span class="reference-author">
+                            Sinkevich, Galina.
+                        </span>
+
+                        “On the History of Epsilontics.”
+
+                        <cite>
+                            arXiv
+                        </cite>,
+                        2015.
+
+                        <a
+                            href="https://arxiv.org/abs/1502.06942"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Read the article
+                        </a>.
+
+                    </li>
+
+                    <li id="ref-openstax-limits">
+
+                        <span class="reference-author">
+                            OpenStax.
+                        </span>
+
+                        <cite>
+                            Calculus, Volume 1:
+                            The Limit of a Function.
+                        </cite>
+
+                        Rice University.
+
+                        <a
+                            href="https://openstax.org/books/calculus-volume-1/pages/2-2-the-limit-of-a-function"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Open textbook
+                        </a>.
+
+                    </li>
+
+                </ol>
+
+            </section>
+
+            <nav
+                class="chapter-pagination"
+                aria-label="Chapter navigation"
+            >
+
+                <a
+                    class="chapter-pagination__previous"
+                    href="../index.html"
+                >
+                    <span>Previous</span>
+                    Project home
+                </a>
+
+                <a
+                    class="chapter-pagination__next"
+                    href="../derivatives/"
+                >
+                    <span>Next</span>
+                    Derivatives
+                </a>
+
+            </nav>
+
+        </main>
+
+    </div>
+
+    <footer class="site-footer">
+
+        <p>
+            © 2026 M Lee.
+        </p>
+
+        <p>
+            First Principles of Calculus —
+            An open educational project under active development.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

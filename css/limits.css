@@ -1,0 +1,760 @@
+:root {
+    --chapter-background: #faf9f6;
+    --paper-background: #fffdf8;
+
+    --ink: #252525;
+    --ink-soft: #525252;
+    --ink-muted: #757575;
+
+    --navy: #111827;
+    --navy-soft: #1f2937;
+
+    --accent: #8b6f47;
+    --accent-soft: #d9ccb4;
+    --accent-pale: #f1ece2;
+
+    --blue-soft: #eaf1f7;
+    --green-soft: #edf3ed;
+    --red-soft: #f8ece9;
+    --violet-soft: #f0edf5;
+
+    --border: #ddd7cc;
+    --border-light: #ebe6dc;
+
+    --content-width: 850px;
+    --navigation-width: 245px;
+
+    --radius: 7px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--ink);
+    background: var(--chapter-background);
+}
+
+.site-header {
+    padding: 4.5rem 2rem 3.5rem;
+
+    color: #f8f4ec;
+    background: var(--navy);
+
+    border-bottom: 5px solid var(--accent);
+}
+
+.site-header__content {
+    max-width: 1050px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.site-eyebrow {
+    margin: 0 0 0.6rem;
+
+    color: #d9ccb4;
+
+    font-family:
+        "Source Serif 4",
+        Georgia,
+        serif;
+
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.site-header h1 {
+    margin: 0;
+
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: clamp(3.5rem, 9vw, 6.2rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 0.96;
+}
+
+.site-subtitle {
+    max-width: 700px;
+    margin: 1.2rem auto 0;
+
+    color: #eee9df;
+
+    font-size: 1.15rem;
+    line-height: 1.65;
+}
+
+.site-author {
+    margin: 1rem 0 0;
+
+    color: #d9d4ca;
+    font-size: 0.94rem;
+}
+
+.primary-navigation {
+    margin-top: 2.2rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.4rem;
+}
+
+.primary-navigation a {
+    color: #f8f4ec;
+
+    font-size: 0.96rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+
+    text-decoration: none;
+}
+
+.primary-navigation a:hover,
+.primary-navigation a:focus-visible {
+    color: #d9ccb4;
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+}
+
+.primary-navigation a[aria-current="page"] {
+    color: #d9ccb4;
+}
+
+.chapter-layout {
+    width: min(
+        calc(
+            var(--navigation-width)
+            + var(--content-width)
+            + 5rem
+        ),
+        100%
+    );
+
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+
+    display: grid;
+    grid-template-columns:
+        var(--navigation-width)
+        minmax(0, var(--content-width));
+
+    align-items: start;
+    gap: 4rem;
+}
+
+.chapter-navigation {
+    position: sticky;
+    top: 2rem;
+
+    padding: 1.35rem;
+
+    background: var(--paper-background);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+}
+
+.chapter-navigation__title {
+    margin: 0 0 0.9rem;
+
+    color: var(--navy);
+
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.chapter-navigation ol {
+    margin: 0;
+    padding-left: 1.25rem;
+
+    color: var(--ink-muted);
+}
+
+.chapter-navigation li {
+    padding: 0.3rem 0;
+}
+
+.chapter-navigation a {
+    color: var(--ink-soft);
+
+    font-size: 0.91rem;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+.chapter-navigation a:hover,
+.chapter-navigation a:focus-visible {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.chapter {
+    min-width: 0;
+}
+
+.chapter-introduction {
+    margin-bottom: 4rem;
+    padding-bottom: 2.5rem;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.chapter-number {
+    margin: 0 0 0.8rem;
+
+    color: var(--accent);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.lead {
+    margin-top: 0;
+
+    color: var(--navy);
+
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: clamp(1.45rem, 3vw, 1.9rem);
+    line-height: 1.42;
+}
+
+.chapter p,
+.chapter li,
+.chapter dd {
+    font-size: 1.07rem;
+    line-height: 1.78;
+}
+
+.chapter-section {
+    margin-bottom: 5rem;
+    scroll-margin-top: 2rem;
+}
+
+.chapter-section > h2 {
+    margin: 0 0 1.8rem;
+    padding-bottom: 0.55rem;
+
+    color: var(--navy);
+
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: clamp(2.2rem, 5vw, 2.85rem);
+    font-weight: 600;
+    line-height: 1.15;
+
+    border-bottom: 1px solid var(--accent-soft);
+}
+
+.subsection-title {
+    margin: 2.7rem 0 1rem;
+
+    color: var(--navy);
+
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+mjx-container[display="true"] {
+    margin: 1.7rem 0 !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.definition,
+.theorem,
+.proof,
+.example,
+.remark,
+.historical-note,
+.logical-form,
+.warning,
+.exercise {
+    margin: 2rem 0;
+    padding: 1.55rem 1.7rem;
+
+    background: var(--paper-background);
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+}
+
+.definition h3,
+.theorem h3,
+.proof h3,
+.example h3,
+.remark h3,
+.historical-note h3,
+.logical-form h3,
+.warning h3 {
+    margin: 0 0 0.8rem;
+
+    color: var(--navy);
+
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: 1.48rem;
+    font-weight: 600;
+}
+
+.definition {
+    background: var(--blue-soft);
+    border-left-color: #55799a;
+}
+
+.definition--central {
+    padding: 2rem;
+    background: #e7eff6;
+}
+
+.theorem {
+    background: var(--violet-soft);
+    border-left-color: #77688c;
+}
+
+.proof {
+    background: var(--paper-background);
+    border-left-color: var(--ink-muted);
+}
+
+.proof h3::after {
+    content: ".";
+}
+
+.example {
+    background: var(--green-soft);
+    border-left-color: #6c856c;
+}
+
+.remark,
+.historical-note {
+    background: var(--accent-pale);
+    border-left-color: var(--accent);
+}
+
+.logical-form {
+    background: #f2f1ed;
+    border-left-color: #59636d;
+}
+
+.warning {
+    background: var(--red-soft);
+    border-left-color: #a16255;
+}
+
+.definition > :last-child,
+.theorem > :last-child,
+.proof > :last-child,
+.example > :last-child,
+.remark > :last-child,
+.historical-note > :last-child,
+.logical-form > :last-child,
+.warning > :last-child {
+    margin-bottom: 0;
+}
+
+.citation {
+    color: #355c7d;
+
+    font-size: 0.78em;
+    font-weight: 700;
+    text-decoration: none;
+    vertical-align: super;
+}
+
+.citation:hover,
+.citation:focus-visible {
+    text-decoration: underline;
+}
+
+.concept-list {
+    margin: 2rem 0;
+
+    display: grid;
+    gap: 1rem;
+}
+
+.concept-list div {
+    padding: 1.2rem 1.4rem;
+
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1rem;
+
+    background: var(--paper-background);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+}
+
+.concept-list dt {
+    color: var(--accent);
+
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: 1.55rem;
+    font-weight: 700;
+}
+
+.concept-list dd {
+    margin: 0;
+}
+
+.implication-display {
+    margin: 2rem 0;
+    padding: 0.8rem 1.5rem;
+
+    background: var(--navy);
+    color: #ffffff;
+
+    border-radius: var(--radius);
+}
+
+.logical-steps,
+.theorem-list {
+    padding-left: 1.5rem;
+}
+
+.logical-steps li,
+.theorem-list li {
+    margin-bottom: 0.8rem;
+}
+
+.visualization-preview {
+    margin: 2rem 0;
+
+    display: grid;
+    grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.6fr);
+    gap: 1.5rem;
+}
+
+.visualization-preview__controls {
+    padding: 1.3rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+
+    background: var(--paper-background);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+}
+
+.visualization-preview__controls label {
+    color: var(--ink-soft);
+
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.visualization-preview__controls select,
+.visualization-preview__controls input {
+    width: 100%;
+    padding: 0.75rem 0.85rem;
+
+    color: var(--ink);
+    background: #f4f1ea;
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    font: inherit;
+}
+
+.function-value-preview {
+    margin-top: 0.5rem;
+    padding: 1rem;
+
+    color: #ffffff;
+    background: var(--navy);
+
+    border-radius: 5px;
+    text-align: center;
+}
+
+.graph-placeholder {
+    position: relative;
+    min-height: 330px;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+
+    color: var(--ink-muted);
+
+    background:
+        linear-gradient(
+            rgba(17, 24, 39, 0.05) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(17, 24, 39, 0.05) 1px,
+            transparent 1px
+        ),
+        #fffdf8;
+
+    background-size: 28px 28px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.graph-placeholder__axis-x,
+.graph-placeholder__axis-y {
+    position: absolute;
+    background: rgba(17, 24, 39, 0.45);
+}
+
+.graph-placeholder__axis-x {
+    left: 0;
+    top: 50%;
+
+    width: 100%;
+    height: 1px;
+}
+
+.graph-placeholder__axis-y {
+    left: 50%;
+    top: 0;
+
+    width: 1px;
+    height: 100%;
+}
+
+.graph-placeholder p {
+    z-index: 1;
+
+    padding: 0.4rem 0.7rem;
+
+    background: rgba(255, 253, 248, 0.9);
+
+    font-size: 0.9rem;
+}
+
+.planned-features {
+    padding-left: 1.4rem;
+}
+
+.planned-features li {
+    margin-bottom: 0.7rem;
+}
+
+.exercise-list {
+    margin: 2rem 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.exercise-list > li {
+    margin: 1.5rem 0;
+}
+
+.exercise-level {
+    margin: 0 0 0.5rem;
+
+    color: var(--accent);
+
+    font-size: 0.78rem !important;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.references {
+    padding-top: 1rem;
+}
+
+.bibliography {
+    padding-left: 1.7rem;
+}
+
+.bibliography li {
+    margin-bottom: 1.25rem;
+    padding-left: 0.4rem;
+}
+
+.reference-author {
+    font-weight: 700;
+}
+
+.bibliography a {
+    color: #355c7d;
+    text-underline-offset: 0.2rem;
+}
+
+.bibliography a:hover,
+.bibliography a:focus-visible {
+    color: var(--accent);
+}
+
+.chapter-pagination {
+    margin-top: 5rem;
+    padding-top: 2rem;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    border-top: 1px solid var(--border);
+}
+
+.chapter-pagination a {
+    padding: 1.1rem 1.2rem;
+
+    color: var(--navy);
+    background: var(--paper-background);
+
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.chapter-pagination a:hover,
+.chapter-pagination a:focus-visible {
+    border-color: var(--accent-soft);
+    transform: translateY(-1px);
+}
+
+.chapter-pagination span {
+    display: block;
+
+    color: var(--ink-muted);
+
+    font-family:
+        "Source Serif 4",
+        Georgia,
+        serif;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.chapter-pagination__next {
+    text-align: right;
+}
+
+.site-footer {
+    padding: 2.5rem 2rem;
+
+    color: #f8f4ec;
+    background: var(--navy);
+
+    text-align: center;
+
+    border-top: 5px solid var(--accent);
+}
+
+.site-footer p {
+    margin: 0.25rem 0;
+}
+
+@media (max-width: 980px) {
+    .chapter-layout {
+        width: min(100%, var(--content-width));
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2rem;
+    }
+
+    .chapter-navigation {
+        position: static;
+    }
+
+    .chapter-navigation ol {
+        columns: 2;
+        column-gap: 2rem;
+    }
+}
+
+@media (max-width: 680px) {
+    .site-header {
+        padding: 3.5rem 1.2rem 2.8rem;
+    }
+
+    .chapter-layout {
+        padding: 2.5rem 1.1rem 4rem;
+    }
+
+    .chapter-navigation ol {
+        columns: 1;
+    }
+
+    .primary-navigation {
+        gap: 0.8rem 1.2rem;
+    }
+
+    .definition,
+    .theorem,
+    .proof,
+    .example,
+    .remark,
+    .historical-note,
+    .logical-form,
+    .warning,
+    .exercise {
+        padding: 1.25rem;
+    }
+
+    .concept-list div {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+    }
+
+    .visualization-preview {
+        grid-template-columns: 1fr;
+    }
+
+    .graph-placeholder {
+        min-height: 280px;
+    }
+
+    .chapter-pagination {
+        grid-template-columns: 1fr;
+    }
+
+    .chapter-pagination__next {
+        text-align: left;
+    }
+}
