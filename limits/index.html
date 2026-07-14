@@ -26,6 +26,15 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/limits.css">
 
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"
+    ></script>
+
     <script>
         window.MathJax = {
             tex: {
@@ -1196,108 +1205,132 @@
             </section>
 
             <section
-                id="visualization"
-                class="chapter-section"
-            >
+    id="visualization"
+    class="chapter-section"
+>
 
-                <h2>9. Interactive Visualization</h2>
+    <h2>9. Interactive Visualization</h2>
 
-                <p>
-                    The interactive component will be introduced after the
-                    mathematical and typographic structure of this chapter has
-                    been validated. The interface will allow the reader to
-                    inspect functions numerically and geometrically without
-                    replacing formal reasoning.
-                </p>
+    <p>
+        The following laboratory explores the function
+        \(f(x)=x^2\). Select a value of \(x\) and observe the
+        corresponding point \((x,f(x))\) on the graph.
+    </p>
 
-                <div class="visualization-preview">
+    <p>
+        The point may also be dragged directly along the curve. Its
+        coordinates and the numerical value of \(f(x)\) are updated
+        continuously.
+    </p>
 
-                    <div class="visualization-preview__controls">
+    <div class="interactive-laboratory">
 
-                        <label for="function-preview">
-                            Function
-                        </label>
+        <div class="laboratory-controls">
 
-                        <select
-                            id="function-preview"
-                            disabled
-                        >
-                            <option>
-                                f(x) = x²
-                            </option>
-                        </select>
+            <div class="control-group">
 
-                        <label for="x-preview">
-                            Input value \(x\)
-                        </label>
+                <label for="function-name">
+                    Function
+                </label>
 
-                        <input
-                            id="x-preview"
-                            type="number"
-                            value="2"
-                            disabled
-                        >
+                <output id="function-name">
+                    \(f(x)=x^2\)
+                </output>
 
-                        <div class="function-value-preview">
-                            \(f(x)=4\)
-                        </div>
+            </div>
 
-                    </div>
+            <div class="control-group">
 
-                    <div
-                        class="graph-placeholder"
-                        role="img"
-                        aria-label="Placeholder for a future interactive function graph"
-                    >
-                        <div class="graph-placeholder__axis-x"></div>
-                        <div class="graph-placeholder__axis-y"></div>
+                <label for="x-input">
+                    Input value \(x\)
+                </label>
 
-                        <p>
-                            Interactive graph module
-                        </p>
-                    </div>
+                <input
+                    id="x-input"
+                    type="number"
+                    value="2"
+                    min="-5"
+                    max="5"
+                    step="0.1"
+                >
 
-                </div>
+            </div>
 
-                <h3 class="subsection-title">
-                    Planned experiments
-                </h3>
+            <div class="control-group">
 
-                <ul class="planned-features">
+                <label for="x-slider">
+                    Adjust \(x\)
+                </label>
 
-                    <li>
-                        Select among representative functions such as
-                        \(x^2\), \(|x|\), \(1/x\), \(\sin x/x\), and functions
-                        with removable or jump discontinuities.
-                    </li>
+                <input
+                    id="x-slider"
+                    type="range"
+                    value="2"
+                    min="-5"
+                    max="5"
+                    step="0.1"
+                >
 
-                    <li>
-                        Enter or select an input \(x\) and display the
-                        corresponding value \(f(x)\).
-                    </li>
+            </div>
 
-                    <li>
-                        Inspect graph coordinates through mouse movement,
-                        clicking, or touch interaction.
-                    </li>
+            <div class="function-output">
 
-                    <li>
-                        Adjust horizontal and vertical viewing intervals.
-                    </li>
+                <span>
+                    Current value
+                </span>
 
-                    <li>
-                        Choose an \(\varepsilon\)-tolerance and observe a
-                        corresponding admissible \(\delta\)-neighborhood.
-                    </li>
+                <strong id="function-value">
+                    \(f(2)=4\)
+                </strong>
 
-                    <li>
-                        Animate sequences \(x_n\to a\) and compare the
-                        resulting values \(f(x_n)\).
-                    </li>
+            </div>
 
-                </ul>
+            <div class="coordinate-output">
 
-            </section>
+                <span>
+                    Point
+                </span>
+
+                <strong id="point-coordinates">
+                    \((2,4)\)
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="graph-panel">
+
+            <div
+                id="limits-board"
+                class="jxgbox limits-board"
+                aria-label="Interactive graph of the function x squared"
+            ></div>
+
+            <p class="graph-instructions">
+                Drag the point, move the slider, or enter a value of
+                \(x\).
+            </p>
+
+        </div>
+
+    </div>
+
+    <article class="remark">
+
+        <h3>Interpretation</h3>
+
+        <p>
+            This experiment displays the correspondence between an input
+            \(x\) and its image \(f(x)\). It does not yet represent the
+            formal definition of a limit. Its purpose is to establish the
+            graphical and numerical language required for the later
+            \(\varepsilon\)-\(\delta\) laboratory.
+        </p>
+
+    </article>
+
+</section>
 
             <section
                 id="exercises"
@@ -1575,6 +1608,8 @@
         </p>
 
     </footer>
+
+    <script src="../js/limits.js"></script>
 
 </body>
 

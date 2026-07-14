@@ -758,3 +758,133 @@ mjx-container[display="true"] {
         text-align: left;
     }
 }
+
+
+.interactive-laboratory {
+    margin: 2.25rem 0;
+
+    display: grid;
+    grid-template-columns: minmax(210px, 0.72fr) minmax(0, 1.65fr);
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+.laboratory-controls,
+.graph-panel {
+    background: var(--paper-background);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+}
+
+.laboratory-controls {
+    padding: 1.4rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.control-group label {
+    color: var(--ink-soft);
+
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.control-group output,
+.control-group input[type="number"] {
+    width: 100%;
+    padding: 0.78rem 0.9rem;
+
+    color: var(--navy);
+    background: #f5f2eb;
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    font-family:
+        "Source Serif 4",
+        Georgia,
+        serif;
+
+    font-size: 1rem;
+}
+
+.control-group input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+}
+
+.function-output,
+.coordinate-output {
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    background: var(--navy);
+    color: #ffffff;
+
+    border-radius: 5px;
+}
+
+.function-output span,
+.coordinate-output span {
+    color: #d9d4ca;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.function-output strong,
+.coordinate-output strong {
+    font-family:
+        "EB Garamond",
+        Georgia,
+        serif;
+
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+
+.graph-panel {
+    padding: 1rem;
+}
+
+.limits-board {
+    width: 100%;
+    aspect-ratio: 1.4 / 1;
+
+    background: #fffdf8;
+    border: 0;
+}
+
+.graph-instructions {
+    margin: 0.8rem 0 0;
+
+    color: var(--ink-muted);
+
+    font-size: 0.86rem !important;
+    text-align: center;
+}
+
+@media (max-width: 760px) {
+    .interactive-laboratory {
+        grid-template-columns: 1fr;
+    }
+
+    .limits-board {
+        aspect-ratio: 1 / 1;
+    }
+}
